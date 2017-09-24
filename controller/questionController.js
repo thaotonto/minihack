@@ -10,6 +10,17 @@ const getQuestionList = (callback) => {
   });
 }
 
+const getQuestionById = (id, callback) => {
+    questionModel.findOne({id: id}, (err, question) => {
+        if (err) {
+            console.log(err);
+        } else {
+            callback(null, question);
+        }
+    });
+};
+
 module.exports = {
-  getQuestionList
+  getQuestionList,
+  getQuestionById
 }

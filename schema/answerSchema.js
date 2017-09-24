@@ -9,6 +9,9 @@ const answerSchema = new Schema({
   answer: {
     type: String,
     require: true
+  },
+  score: {
+    type: Number
   }
 });
 

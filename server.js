@@ -2,9 +2,12 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const questionController = require('./controller/questionController.js');
+const cors = require('cors');
+const questionRouter = require('./routers/questionRouter.js');
+const answerRouter = require('./routers/answerRouter.js');
 
 let app = express();
+app.use(cors());
 
 mongoose.connect('mongodb://localhost/minihack', (err) => {
   if (err) {
@@ -14,18 +17,15 @@ mongoose.connect('mongodb://localhost/minihack', (err) => {
   }
 });
 
-app.use('/', apiRouter);
-
-questionController.getQuestionList((err,questions) => {
-  if (err == null) {
-    // console.log(questions);
-  }
-});
-
-
 app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true}));
+
+app.get('/', (req, res) => {
+
+});
+app.use('/questions', questionRouter);
+app.use('/answer', answerRouter);
 
 app.use(express.static(__dirname + '/public'));
 

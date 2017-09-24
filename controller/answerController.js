@@ -1,1 +1,5 @@
-const answerModel = require('./answerSchema.js');
+const answerModel = require('../schema/answerSchema.js');
+
+const addAnswer = (answer) => {
+  
+}
