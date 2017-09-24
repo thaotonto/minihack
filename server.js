@@ -14,6 +14,8 @@ mongoose.connect('mongodb://localhost/minihack', (err) => {
   }
 });
 
+app.use('/', apiRouter);
+
 questionController.getQuestionList((err,questions) => {
   if (err == null) {
     // console.log(questions);
