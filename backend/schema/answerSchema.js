@@ -7,11 +7,14 @@ const answerSchema = new Schema({
     require: true
   },
   answer: {
-    type: String,
-    require: true
+    type: Number
   },
   score: {
-    type: Number
+    type: Number,
+    default: 0
+  },
+  userID: {
+    type: String
   }
 });
 

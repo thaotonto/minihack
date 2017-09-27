@@ -9,6 +9,9 @@ const questionSchema = new Schema({
   question: {
     type: String,
     require: true
+  },
+  answerButton: {
+    type: [Number]
   }
 });
 

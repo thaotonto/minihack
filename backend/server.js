@@ -21,9 +21,6 @@ app.engine('handlebars', handlebars({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.get('/', (req, res) => {
-
-});
 app.use('/questions', questionRouter);
 app.use('/answer', answerRouter);
 

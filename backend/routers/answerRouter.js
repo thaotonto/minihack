@@ -1,30 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const answerController = require('../controller/answerController.js');
+const questionController = require('../controller/questionController.js');
 
 router.post('/', (req, res) => {
-    console.log(req.body);
+  let answerInfo = {
+    questionID: req.body.questionID,
+    answer: req.body.answer,
+    userID: req.ip
+  }
 
-    if (req.body.questionNo == 6) {
-      res.redirect('/finish');
+  // let answerInfo = {
+  //   questionID: req.body.questionID,
+  //   answer: req.body.answer,
+  //   userID: req.body.userID
+  // }
+  answerController.addNewAnswer(answerInfo, (err, data) => {
+    if (err == null) {
+      questionController.handleQuestion(answerInfo, (score) => {
+        answerController.updateScore(data, score, () => {
+          answerController.getTotalScore(data.userID, (newScore) => {
+            res.send({newScore});
+          });
+        });
+      });
     } else {
-      res.send(req.body);
+      if (err == "Answered") {
+        res.send("Answered");
+      }
     }
-    
-    // questionController.getQuestionById(id, (err, question) => {
-    //     if(err != null){
-    //         console.log();
-    //     } else {
-    //       res.send(question);
-    //     }
-    // });
-    // res.redirect('/');
-
+  });
 });
-
-router.get('/',(req, res) => {
-})
-
-
 
 module.exports = router;
